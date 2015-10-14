@@ -54,6 +54,7 @@ class ViewController: UIViewController {
                 if user != nil {
         
                     print("login successful!")
+                    self.performSegueWithIdentifier("login", sender: self)
         
                 } else {
         

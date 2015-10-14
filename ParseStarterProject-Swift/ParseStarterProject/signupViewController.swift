@@ -71,6 +71,7 @@ class signupViewController: UIViewController {
                 if error == nil {
                     
                     //signup works
+                    self.performSegueWithIdentifier("signup", sender: self)
                     
                 } else {
                     
