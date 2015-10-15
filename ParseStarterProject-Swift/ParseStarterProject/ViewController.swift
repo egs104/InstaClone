@@ -34,16 +34,27 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
+        // Set up tap to dismiss keyboard
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         
-        if PFUser.currentUser() != nil {
-            
-            self.performSegueWithIdentifier("login", sender: self)
-            
-        }
+//        if PFUser.currentUser() != nil {
+//            
+//            self.performSegueWithIdentifier("login", sender: self)
+//            print(PFUser.currentUser())
+//            
+//        }
         
+    }
+    
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields to resign the first responder status.
+        view.endEditing(true)
     }
     
     override func didReceiveMemoryWarning() {

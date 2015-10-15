@@ -11,8 +11,9 @@ import Parse
 
 class TableViewController: UITableViewController {
     
-    var usernames = [""]
-    var userIds = [""]
+    var usernames = [""]                    //array of usernames
+    var userIds = [""]                      //array of unique user object ids
+    var isFollowing = ["":false]            //dictionary of object ids and bool indicating whether they are being followed
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class TableViewController: UITableViewController {
                 
                 self.usernames.removeAll(keepCapacity: true)
                 self.userIds.removeAll(keepCapacity: true)
+                self.isFollowing.removeAll(keepCapacity: true)
                 
                 
                 for object in users {
@@ -39,24 +41,50 @@ class TableViewController: UITableViewController {
                         
                         if user.objectId! != PFUser.currentUser()?.objectId {
                         
-                        self.usernames.append(user.username!)
-                        self.userIds.append(user.objectId!)
+                            self.usernames.append(user.username!)
+                            self.userIds.append(user.objectId!)
                             
+                            var query = PFQuery(className: "followers")
+                            
+                            query.whereKey("follower", equalTo: PFUser.currentUser()!.objectId!)
+                            query.whereKey("following", equalTo: user.objectId!)
+                            
+                            query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+                                
+                                if let objects = objects {
+                                    
+                                    if objects.count > 0 {
+                                    
+                                        self.isFollowing[user.objectId!] = true
+                                    
+                                    } else {
+                                    
+                                        self.isFollowing[user.objectId!] = false
+                                    
+                                    }
+                                }
+                                
+                                if self.isFollowing.count == self.usernames.count {
+                                    
+                                    self.tableView.reloadData()
+                                    
+                                }
+                            
+                            })
+                
                         }
                         
                     }
-                    
                 }
-                
             }
             
             print(self.usernames)
             print(self.userIds)
-            
-            self.tableView.reloadData()
+                        
         })
         
     }
+    
     
 
     override func didReceiveMemoryWarning() {
@@ -80,7 +108,15 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell!
 
-         cell.textLabel?.text = usernames[indexPath.row]
+        cell.textLabel?.text = usernames[indexPath.row]
+        
+        let FollowedObjectId = userIds[indexPath.row]
+        
+        if isFollowing[FollowedObjectId] == true {
+            
+             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            
+        }
 
         return cell
     }
@@ -90,13 +126,46 @@ class TableViewController: UITableViewController {
         
         var cell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         
-        cell.accessoryType = UITableViewCellAccessoryType.Checkmark                 //checkmark for people user is following
+        let FollowedObjectId = userIds[indexPath.row]
         
-        var following = PFObject(className: "followers")                    //created followers class in parse
-        following["following"] = userIds[indexPath.row]                     //following string is the objectId of the person who user wants to follow
-        following["follower"] = PFUser.currentUser()?.objectId              //follower string is objectId of the logged in user
+        if isFollowing[FollowedObjectId] == false {
+            
+            isFollowing[FollowedObjectId] = true
         
-        following.saveInBackground()
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark                 //checkmark for people user is following
+        
+            var following = PFObject(className: "followers")                    //created followers class in parse
+            following["following"] = userIds[indexPath.row]                     //following string is the objectId of the person who user wants to follow
+            following["follower"] = PFUser.currentUser()?.objectId              //follower string is objectId of the logged in user
+        
+            following.saveInBackground()
+            
+        } else {
+            
+            isFollowing[FollowedObjectId] = false
+            
+            cell.accessoryType = UITableViewCellAccessoryType.None
+            
+            var query = PFQuery(className: "followers")
+            
+            query.whereKey("follower", equalTo: PFUser.currentUser()!.objectId!)
+            query.whereKey("following", equalTo: userIds[indexPath.row])
+            
+            query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+                
+                if let objects = objects {
+                    
+                    for object in objects {
+                        
+                        object.deleteInBackground()
+                        
+                    }
+                }
+                
+            })
+
+            
+        }
         
     }
 
