@@ -18,7 +18,7 @@ import Parse
 // import ParseCrashReporting
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITableViewDelegate {
 
     var window: UIWindow?
 
