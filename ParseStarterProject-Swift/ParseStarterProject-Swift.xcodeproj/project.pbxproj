@@ -18,6 +18,10 @@
 		81BA817B1A49E0E500E65899 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817A1A49E0E500E65899 /* SystemConfiguration.framework */; };
 		81BA817F1A49E0F000E65899 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */; };
 		A108626D1BCED79700974B7F /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A108626C1BCED79700974B7F /* TableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		A179FEC31BD6FA6B00C9D2A0 /* PostImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A179FEC21BD6FA6B00C9D2A0 /* PostImageViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		A180E93D1BD8047300C36893 /* cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180E93C1BD8047300C36893 /* cell.swift */; settings = {ASSET_TAGS = (); }; };
+		A180E93F1BD8054700C36893 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180E93E1BD8054700C36893 /* ProfileTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		A180E9411BD8162100C36893 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180E9401BD8162100C36893 /* FriendsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		A1913FE71BCDB1CA0095EBF4 /* signupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1913FE61BCDB1CA0095EBF4 /* signupViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -38,6 +42,10 @@
 		81BA817E1A49E0F000E65899 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81BA81801A49E10C00E65899 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		A108626C1BCED79700974B7F /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		A179FEC21BD6FA6B00C9D2A0 /* PostImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostImageViewController.swift; path = ../PostImageViewController.swift; sourceTree = "<group>"; };
+		A180E93C1BD8047300C36893 /* cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cell.swift; sourceTree = "<group>"; };
+		A180E93E1BD8054700C36893 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		A180E9401BD8162100C36893 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		A1913FE61BCDB1CA0095EBF4 /* signupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,7 +100,11 @@
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
+				A180E93E1BD8054700C36893 /* ProfileTableViewController.swift */,
+				A180E93C1BD8047300C36893 /* cell.swift */,
+				A180E9401BD8162100C36893 /* FriendsViewController.swift */,
 				A1913FE61BCDB1CA0095EBF4 /* signupViewController.swift */,
+				A179FEC21BD6FA6B00C9D2A0 /* PostImageViewController.swift */,
 			);
 			name = "ParseStarterProject-Swift";
 			path = ParseStarterProject;
@@ -211,9 +223,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
+				A180E9411BD8162100C36893 /* FriendsViewController.swift in Sources */,
 				A1913FE71BCDB1CA0095EBF4 /* signupViewController.swift in Sources */,
+				A179FEC31BD6FA6B00C9D2A0 /* PostImageViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				A108626D1BCED79700974B7F /* TableViewController.swift in Sources */,
+				A180E93D1BD8047300C36893 /* cell.swift in Sources */,
+				A180E93F1BD8054700C36893 /* ProfileTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

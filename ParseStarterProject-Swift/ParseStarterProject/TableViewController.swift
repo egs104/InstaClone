@@ -9,11 +9,18 @@
 import UIKit
 import Parse
 
+var usernames = [""]                    //array of usernames
+var userIds = [""]                      //array of unique user object ids
+var isFollowing = ["":false]            //dictionary of object ids and bool indicating whether they are being followed
+var friends = [String:String]()                      //array of all users for which isFollowing value is true
+var followedIds = [String]()            //array of user ids of all users who are being followed by the logged in user
+
+
 class TableViewController: UITableViewController {
     
-    var usernames = [""]                    //array of usernames
-    var userIds = [""]                      //array of unique user object ids
-    var isFollowing = ["":false]            //dictionary of object ids and bool indicating whether they are being followed
+//    var usernames = [""]                    //array of usernames
+//    var userIds = [""]                      //array of unique user object ids
+//    var isFollowing = ["":false]            //dictionary of object ids and bool indicating whether they are being followed
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +37,9 @@ class TableViewController: UITableViewController {
             
             if let users = objects {
                 
-                self.usernames.removeAll(keepCapacity: true)
-                self.userIds.removeAll(keepCapacity: true)
-                self.isFollowing.removeAll(keepCapacity: true)
-                
+                usernames.removeAll(keepCapacity: true)
+                userIds.removeAll(keepCapacity: true)
+                isFollowing.removeAll(keepCapacity: true)
                 
                 for object in users {
                     
@@ -41,8 +47,8 @@ class TableViewController: UITableViewController {
                         
                         if user.objectId! != PFUser.currentUser()?.objectId {
                         
-                            self.usernames.append(user.username!)
-                            self.userIds.append(user.objectId!)
+                            usernames.append(user.username!)
+                            userIds.append(user.objectId!)
                             
                             var query = PFQuery(className: "followers")
                             
@@ -55,16 +61,16 @@ class TableViewController: UITableViewController {
                                     
                                     if objects.count > 0 {
                                     
-                                        self.isFollowing[user.objectId!] = true
+                                        isFollowing[user.objectId!] = true
                                     
                                     } else {
                                     
-                                        self.isFollowing[user.objectId!] = false
+                                        isFollowing[user.objectId!] = false
                                     
                                     }
                                 }
                                 
-                                if self.isFollowing.count == self.usernames.count {
+                                if isFollowing.count == usernames.count {
                                     
                                     self.tableView.reloadData()
                                     
@@ -78,8 +84,8 @@ class TableViewController: UITableViewController {
                 }
             }
             
-            print(self.usernames)
-            print(self.userIds)
+            print(usernames)
+            print(userIds)
                         
         })
         
@@ -114,7 +120,10 @@ class TableViewController: UITableViewController {
         
         if isFollowing[FollowedObjectId] == true {
             
-             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            friends[userIds[indexPath.row]] = usernames[indexPath.row]
+            followedIds.append(userIds[indexPath.row])
+            
             
         }
 
@@ -128,11 +137,20 @@ class TableViewController: UITableViewController {
         
         let FollowedObjectId = userIds[indexPath.row]
         
+        //let matchingUsername = usernames[indexPath.row]
+        
         if isFollowing[FollowedObjectId] == false {
             
             isFollowing[FollowedObjectId] = true
         
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark                 //checkmark for people user is following
+            
+            if friends[userIds[indexPath.row]] == nil {
+            
+                friends[userIds[indexPath.row]] = usernames[indexPath.row]
+                followedIds.append(userIds[indexPath.row])
+            
+            }
         
             var following = PFObject(className: "followers")                    //created followers class in parse
             following["following"] = userIds[indexPath.row]                     //following string is the objectId of the person who user wants to follow
@@ -146,6 +164,18 @@ class TableViewController: UITableViewController {
             
             cell.accessoryType = UITableViewCellAccessoryType.None
             
+            friends[userIds[indexPath.row]] = nil
+            
+            var deleteIndex:Int = followedIds.indexOf(userIds[indexPath.row])!
+            
+            print(deleteIndex)
+            
+            if userIds[indexPath.row] == followedIds[deleteIndex] {
+                
+                followedIds.removeAtIndex(deleteIndex)
+                
+            }
+            
             var query = PFQuery(className: "followers")
             
             query.whereKey("follower", equalTo: PFUser.currentUser()!.objectId!)
@@ -154,6 +184,7 @@ class TableViewController: UITableViewController {
             query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
                 
                 if let objects = objects {
+                    
                     
                     for object in objects {
                         
