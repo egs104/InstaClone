@@ -9,6 +9,9 @@
 import UIKit
 import Parse
 
+var selectedFriend = ""
+var selectedUserId = ""
+
 class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
@@ -44,29 +47,34 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        return friends.count
+        return followedIds.count
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         
-        var count = userIds.count
-        var row = indexPath.row
-        
-        while count != 0 && friends[userIds[row]] == nil {
-            
-            row = row + 1
-            
-            count--
-            
-        }
-        
-        myCell.textLabel?.text = friends[userIds[row]]
+        myCell.textLabel?.text = friends[followedIds[indexPath.row]]
         
         //cell.textLabel?.text = "Test"
         
         return myCell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        var cell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        
+        selectedFriend = friends[followedIds[indexPath.row]]!
+        selectedUserId = followedIds[indexPath.row]
+        
+        self.performSegueWithIdentifier("friendProfile", sender: self)
+        
+//        print(selectedUserId)
+//        print(selectedFriend)
+        
+        
+        
     }
 
     /*

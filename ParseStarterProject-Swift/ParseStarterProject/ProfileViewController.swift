@@ -9,13 +9,61 @@
 import UIKit
 import Parse
 
-class ProfileTableViewController: UITableViewController {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var profileTitle: UINavigationItem!
+    
+    var captions = [String]()
+    var users = [String]()
+    var imageFiles = [PFFile]()
 
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
+        print(selectedUserId)
+        print(selectedFriend)
+        print("Test")
 
+        
+        super.viewDidLoad()
+        
+        profileTitle.title = selectedFriend
+
+//        var query = PFUser.query()
+//        
+//        query?.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+//            
+//            if let users = objects {
+//                
+//                self.captions.removeAll(keepCapacity: true)
+//                self.users.removeAll(keepCapacity: true)
+//                self.imageFiles.removeAll(keepCapacity: true)
+//                
+//                for object in users {
+//                    
+//                }
+//                
+//            }
+        
         var getFriendsImagesQuery = PFQuery(className:"Post")
-        // getFriendsImagesQuery.whereKey("userId", equalTo: )          get userId of selected friend
+        getFriendsImagesQuery.whereKey("userId", equalTo: selectedUserId)
+        
+        getFriendsImagesQuery.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
+            
+            if let objects = objects {
+                
+                for object in objects {
+                    
+                    self.captions.append(object["caption"] as! (String))
+                    
+                    self.imageFiles.append(object["imageFile"] as! (PFFile))
+                    
+                    self.tableView.reloadData()
+                }
+                
+            }
+            
+        }
         
     }
 
@@ -25,27 +73,46 @@ class ProfileTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        print(captions)
+        print(imageFiles.count)
+        return followedIds.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let myCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! cell
+        
+//        imageFiles[indexPath.row].getDataInBackgroundWithBlock{ (data, error) -> Void in
+//            
+//            if let downloadedImage = UIImage(data: data!) {
+//
+//                myCell.postedImage.image = downloadedImage
+//                
+//            }
+//            
+//        }
 
-        myCell.postedImage.image = nil
+        //myCell.postedImage.image = nil
         myCell.username.text = "User 123"
         myCell.caption.text = "caption"
 
         return myCell
     }
+    
+    
+    
+//    func tableView(tableView:UITableView, heightForRowAtIndexPath indexPath:NSIndexPath)->CGFloat
+//    {
+//        retu rn 44
+//    }
 
 
     /*
