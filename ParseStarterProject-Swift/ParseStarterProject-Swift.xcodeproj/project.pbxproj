@@ -22,6 +22,7 @@
 		A180E93F1BD8054700C36893 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180E93E1BD8054700C36893 /* ProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		A180E9411BD8162100C36893 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180E9401BD8162100C36893 /* FriendsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		A180E9451BD856F900C36893 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A180E9441BD856F900C36893 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
+		A180E9471BD9622100C36893 /* myProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180E9461BD9622100C36893 /* myProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		A1913FE71BCDB1CA0095EBF4 /* signupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1913FE61BCDB1CA0095EBF4 /* signupViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		A180E93E1BD8054700C36893 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A180E9401BD8162100C36893 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		A180E9441BD856F900C36893 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A180E9461BD9622100C36893 /* myProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myProfileViewController.swift; sourceTree = "<group>"; };
 		A1913FE61BCDB1CA0095EBF4 /* signupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +103,7 @@
 				81BA814C1A49DA1800E65899 /* ViewController.swift */,
 				A180E93E1BD8054700C36893 /* ProfileViewController.swift */,
 				A180E9441BD856F900C36893 /* Main.storyboard */,
+				A180E9461BD9622100C36893 /* myProfileViewController.swift */,
 				A180E93C1BD8047300C36893 /* cell.swift */,
 				A180E9401BD8162100C36893 /* FriendsViewController.swift */,
 				A1913FE61BCDB1CA0095EBF4 /* signupViewController.swift */,
@@ -228,6 +231,7 @@
 				A179FEC31BD6FA6B00C9D2A0 /* PostImageViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				A108626D1BCED79700974B7F /* TableViewController.swift in Sources */,
+				A180E9471BD9622100C36893 /* myProfileViewController.swift in Sources */,
 				A180E93D1BD8047300C36893 /* cell.swift in Sources */,
 				A180E93F1BD8054700C36893 /* ProfileViewController.swift in Sources */,
 			);

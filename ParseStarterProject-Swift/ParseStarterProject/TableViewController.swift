@@ -40,6 +40,8 @@ class TableViewController: UITableViewController {
                 usernames.removeAll(keepCapacity: true)
                 userIds.removeAll(keepCapacity: true)
                 isFollowing.removeAll(keepCapacity: true)
+                friends.removeAll(keepCapacity: true)
+                followedIds.removeAll(keepCapacity: true)
                 
                 for object in users {
                     
@@ -167,8 +169,6 @@ class TableViewController: UITableViewController {
             friends[userIds[indexPath.row]] = nil
             
             var deleteIndex:Int = followedIds.indexOf(userIds[indexPath.row])!
-            
-            print(deleteIndex)
             
             if userIds[indexPath.row] == followedIds[deleteIndex] {
                 

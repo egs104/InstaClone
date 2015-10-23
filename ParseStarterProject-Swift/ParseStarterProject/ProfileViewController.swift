@@ -20,30 +20,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-        print(selectedUserId)
-        print(selectedFriend)
-        print("Test")
-
+        
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
         
         super.viewDidLoad()
         
         profileTitle.title = selectedFriend
-
-//        var query = PFUser.query()
-//        
-//        query?.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
-//            
-//            if let users = objects {
-//                
-//                self.captions.removeAll(keepCapacity: true)
-//                self.users.removeAll(keepCapacity: true)
-//                self.imageFiles.removeAll(keepCapacity: true)
-//                
-//                for object in users {
-//                    
-//                }
-//                
-//            }
         
         var getFriendsImagesQuery = PFQuery(className:"Post")
         getFriendsImagesQuery.whereKey("userId", equalTo: selectedUserId)
@@ -66,6 +49,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
     }
+    
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields to resign the first responder status.
+        view.endEditing(true)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -81,8 +69,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         print(captions)
-        print(imageFiles.count)
-        return followedIds.count
+        print(imageFiles)
+        return imageFiles.count
     }
 
     
@@ -90,20 +78,18 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let myCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! cell
         
-//        imageFiles[indexPath.row].getDataInBackgroundWithBlock{ (data, error) -> Void in
-//            
-//            if let downloadedImage = UIImage(data: data!) {
-//
-//                myCell.postedImage.image = downloadedImage
-//                
-//            }
-//            
-//        }
+        imageFiles[indexPath.row].getDataInBackgroundWithBlock{ (data, error) -> Void in
+            
+            if let downloadedImage = UIImage(data: data!) {
 
-        //myCell.postedImage.image = nil
-        myCell.username.text = "User 123"
-        myCell.caption.text = "caption"
+                myCell.postedImage.image = downloadedImage
+                
+            }
+            
+        }
 
+        myCell.username.text = selectedFriend
+        myCell.caption.text = captions[indexPath.row]
         return myCell
     }
     

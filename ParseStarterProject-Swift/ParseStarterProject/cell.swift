@@ -14,6 +14,9 @@ class cell: UITableViewCell {
     @IBOutlet weak var caption: UILabel!
     @IBOutlet weak var username: UILabel!
     
+    @IBOutlet weak var myPostedImage: UIImageView!
+    @IBOutlet weak var myUsername: UILabel!
+    @IBOutlet weak var myCaption: UILabel!
     
     
 }
